@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class DeptVo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long no;
     
     private String name;
     
@@ -24,13 +24,7 @@ public class DeptVo implements Serializable {
     private Long hisId;
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    
 
     public String getName() {
         return name;
@@ -62,5 +56,13 @@ public class DeptVo implements Serializable {
 
     public void setHisId(Long hisId) {
         this.hisId = hisId;
+    }
+
+    public Long getNo() {
+        return no;
+    }
+
+    public void setNo(Long no) {
+        this.no = no;
     }
 }
