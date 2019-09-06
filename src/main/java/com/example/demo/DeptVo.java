@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import jdk.nashorn.internal.objects.annotations.Getter;
+import jdk.nashorn.internal.objects.annotations.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,8 +14,8 @@ import java.io.Serializable;
 @Entity
 @Table(name = "t_hc_dept")
 public class DeptVo implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long no;
     
     private String name;
@@ -22,9 +25,36 @@ public class DeptVo implements Serializable {
     private String summary;
 
     private Long hisId;
-
-
     
+    private Long platformId;
+
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
+    }
+
+    public String getHasChild() {
+        return hasChild;
+    }
+
+    public void setHasChild(String hasChild) {
+        this.hasChild = hasChild;
+    }
+
+    private String pid;
+
+    private String hasChild;
+
+    public Long getPlatformId() {
+        return platformId;
+    }
+
+    public void setPlatformId(Long platformId) {
+        this.platformId = platformId;
+    }
 
     public String getName() {
         return name;

@@ -12,7 +12,6 @@ import java.io.Serializable;
 @Table(name = "t_hc_doctor")
 public class DoctorVo implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private String name;
@@ -26,6 +25,46 @@ public class DoctorVo implements Serializable {
     private String title;
     
     private String img;
+
+    private Long platformId;
+    
+    private String pid;
+    
+    private String hasChild;
+    
+    private String skill;
+
+    public String getSkill() {
+        return skill;
+    }
+
+    public void setSkill(String skill) {
+        this.skill = skill;
+    }
+
+    public Long getPlatformId() {
+        return platformId;
+    }
+
+    public void setPlatformId(Long platformId) {
+        this.platformId = platformId;
+    }
+
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
+    }
+
+    public String getHasChild() {
+        return hasChild;
+    }
+
+    public void setHasChild(String hasChild) {
+        this.hasChild = hasChild;
+    }
 
     public Long getId() {
         return id;
@@ -81,5 +120,22 @@ public class DoctorVo implements Serializable {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    @Override
+    public String toString() {
+        return "DoctorVo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", deptNo=" + deptNo +
+                ", summary='" + summary + '\'' +
+                ", hisId=" + hisId +
+                ", title='" + title + '\'' +
+                ", img='" + img + '\'' +
+                ", platformId=" + platformId +
+                ", pid='" + pid + '\'' +
+                ", hasChild='" + hasChild + '\'' +
+                ", skill='" + skill + '\'' +
+                '}';
     }
 }
