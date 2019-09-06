@@ -20,10 +20,10 @@ import java.util.List;
 
 @Crawler(name = "dept")
 public class DeptCrawlers extends BaseSeimiCrawler {
-    
+
     @Autowired
     DeptResp resp;
-    
+
     @Override
     public String[] startUrls() {
         return new String[]{"http://www.zjyy.com.cn/dept/Default.aspx"};
@@ -32,14 +32,9 @@ public class DeptCrawlers extends BaseSeimiCrawler {
     @Override
     public void start(Response response) {
         JXDocument doc = response.document();
-        try {
-            List<Object> urls = doc.sel("//a[@class='dept_c_content_a']/@href");
-            logger.info("{}", urls.size());
-            for (Object s : urls) {
-                push(Request.build("http://www.zjyy.com.cn/dept/" + s.toString(), DeptCrawlers::getTitle));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        List<Object> urls = doc.sel("//a[@class='dept_c_content_a']/@href");
+        for (Object s : urls) {
+            push(Request.build("http://www.zjyy.com.cn/dept/" + s.toString(), DeptCrawlers::getTitle));
         }
     }
 
@@ -52,15 +47,15 @@ public class DeptCrawlers extends BaseSeimiCrawler {
             StringBuilder sb = new StringBuilder();
             for (Object summary : summaryList) {
                 String sss = summary.toString().replaceAll("<[^>]*>", "\t\n");
-                sb.append(sss);
+                sb.append(sss.trim());
             }
-            logger.info("name:{}, summary:{}", title, sb.toString());
             DeptVo deptVo = new DeptVo();
             deptVo.setHisId(2119L);
             deptVo.setName(title);
             deptVo.setSummary(sb.toString());
             deptVo.setPlatformId(2119L);
-            deptVo.setNo(Long.parseLong(response.getUrl().substring(response.getUrl().indexOf("=")+1)));
+            deptVo.setPid("0");
+            deptVo.setNo(Long.parseLong(response.getUrl().substring(response.getUrl().indexOf("=") + 1)));
             resp.save(deptVo);
         } catch (Exception e) {
             e.printStackTrace();

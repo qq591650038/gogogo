@@ -36,17 +36,8 @@ public class DeptVo implements Serializable {
         this.pid = pid;
     }
 
-    public String getHasChild() {
-        return hasChild;
-    }
-
-    public void setHasChild(String hasChild) {
-        this.hasChild = hasChild;
-    }
-
     private String pid;
-
-    private String hasChild;
+    
 
     public Long getPlatformId() {
         return platformId;

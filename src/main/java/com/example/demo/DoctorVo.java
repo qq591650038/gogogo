@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Table(name = "t_hc_doctor")
 public class DoctorVo implements Serializable {
     @Id
-    private Long id;
+    private Long no;
     
     private String name;
     
@@ -28,10 +28,6 @@ public class DoctorVo implements Serializable {
 
     private Long platformId;
     
-    private String pid;
-    
-    private String hasChild;
-    
     private String skill;
 
     public String getSkill() {
@@ -42,6 +38,14 @@ public class DoctorVo implements Serializable {
         this.skill = skill;
     }
 
+    public Long getNo() {
+        return no;
+    }
+
+    public void setNo(Long no) {
+        this.no = no;
+    }
+
     public Long getPlatformId() {
         return platformId;
     }
@@ -49,30 +53,7 @@ public class DoctorVo implements Serializable {
     public void setPlatformId(Long platformId) {
         this.platformId = platformId;
     }
-
-    public String getPid() {
-        return pid;
-    }
-
-    public void setPid(String pid) {
-        this.pid = pid;
-    }
-
-    public String getHasChild() {
-        return hasChild;
-    }
-
-    public void setHasChild(String hasChild) {
-        this.hasChild = hasChild;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    
 
     public String getName() {
         return name;
@@ -121,21 +102,5 @@ public class DoctorVo implements Serializable {
     public void setImg(String img) {
         this.img = img;
     }
-
-    @Override
-    public String toString() {
-        return "DoctorVo{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", deptNo=" + deptNo +
-                ", summary='" + summary + '\'' +
-                ", hisId=" + hisId +
-                ", title='" + title + '\'' +
-                ", img='" + img + '\'' +
-                ", platformId=" + platformId +
-                ", pid='" + pid + '\'' +
-                ", hasChild='" + hasChild + '\'' +
-                ", skill='" + skill + '\'' +
-                '}';
-    }
+    
 }
