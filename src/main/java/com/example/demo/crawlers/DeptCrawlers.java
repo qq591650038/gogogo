@@ -34,31 +34,26 @@ public class DeptCrawlers extends BaseSeimiCrawler {
         JXDocument doc = response.document();
         List<Object> urls = doc.sel("//a[@class='dept_c_content_a']/@href");
         for (Object s : urls) {
-            push(Request.build("http://www.zjyy.com.cn/dept/" + s.toString(), DeptCrawlers::getTitle));
+            push(Request.build("http://www.zjyy.com.cn/dept/" + s.toString(), DeptCrawlers::getDept));
         }
     }
 
-    public void getTitle(Response response) {
+    public void getDept(Response response) {
         JXDocument doc = response.document();
-        try {
-            String title = doc.selOne("//div[@class='title_left']/text()").toString();
-            logger.info("url:{} {}", response.getUrl(), doc.sel("//div[@id='sectionb-1']/div/text()"));
-            List<Object> summaryList = doc.sel("//div[@id='sectionb-1']");
-            StringBuilder sb = new StringBuilder();
-            for (Object summary : summaryList) {
-                String sss = summary.toString().replaceAll("<[^>]*>", "\t\n");
-                sb.append(sss.trim());
-            }
-            DeptVo deptVo = new DeptVo();
-            deptVo.setHisId(2119L);
-            deptVo.setName(title);
-            deptVo.setSummary(sb.toString());
-            deptVo.setPlatformId(2119L);
-            deptVo.setPid("0");
-            deptVo.setNo(Long.parseLong(response.getUrl().substring(response.getUrl().indexOf("=") + 1)));
-            resp.save(deptVo);
-        } catch (Exception e) {
-            e.printStackTrace();
+        String title = doc.selOne("//div[@class='title_left']/text()").toString();
+        List<Object> summaryList = doc.sel("//div[@id='sectionb-1']");
+        StringBuilder sb = new StringBuilder();
+        for (Object summary : summaryList) {
+            String sss = summary.toString().replaceAll("<[^>]*>", "\t\n");
+            sb.append(sss.trim());
         }
+        DeptVo deptVo = new DeptVo();
+        deptVo.setHisId(2119L);
+        deptVo.setName(title);
+        deptVo.setSummary(sb.toString().trim());
+        deptVo.setPlatformId(2119L);
+        deptVo.setPid("0");
+        deptVo.setNo(Long.parseLong(response.getUrl().substring(response.getUrl().indexOf("=") + 1)));
+        resp.save(deptVo);
     }
 }

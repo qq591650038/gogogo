@@ -21,7 +21,7 @@ import java.util.List;
  */
 
 @Crawler(name = "doctor")
-public class DoctorCrawlers extends DeptCrawlers {
+public class DoctorCrawlers extends BaseSeimiCrawler {
 
     @Autowired
     DoctorResp resp;
@@ -62,23 +62,28 @@ public class DoctorCrawlers extends DeptCrawlers {
             String str1 = titles.get(i + 1).toString().replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "\t\n");
             sb.append(str.trim()).append(',').append(str1.trim());
         }
+        String title = sb.toString();
+        if(title.endsWith(",")){
+            title = title.substring(0, title.length()-1);
+        }
 
         StringBuilder summary = new StringBuilder();
-        for (int i = 0; i < skills.size() - 1; i++) {
+        for (int i = 0; i < skills.size(); i++) {
             String str = skills.get(i).toString().replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "\t\n");
             summary.append(str);
         }
-
+        String skill = String.valueOf(skills.get(skills.size() - 1)).replaceAll("\\&[a-zA-Z]{0,9};", "").replaceAll("<[^>]*>", "\t\n");
+        
         DoctorVo doctorVo = new DoctorVo();
         doctorVo.setDeptNo(Long.parseLong(id.substring(id.lastIndexOf("=") + 1)));
         doctorVo.setNo(Long.parseLong(id.substring(id.indexOf("=") + 1, id.lastIndexOf("&"))));
         doctorVo.setHisId(2119L);
         doctorVo.setName(name);
-        doctorVo.setSkill(String.valueOf(skills.get(skills.size() - 1)));
-        doctorVo.setTitle(sb.toString());
+        doctorVo.setSkill(skill);
+        doctorVo.setTitle(title);
         doctorVo.setPlatformId(2119L);
         doctorVo.setImg(img);
-        doctorVo.setSummary(summary.toString());
+        doctorVo.setSummary(summary.toString().trim());
         resp.save(doctorVo);
 
     }
